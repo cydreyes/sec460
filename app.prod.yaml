@@ -1,0 +1,8 @@
+service: streamlit-app-prod #< change this to something else
+
+instance_class: B2
+
+env_variables:
+  STREAMLIT_SERVER_PORT: 8080
+
+entrypoint: streamlit run app.py --server.port 8080 #< change 'app.py' to whatever entry point you have
