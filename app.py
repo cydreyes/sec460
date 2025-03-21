@@ -10,51 +10,28 @@ password = st.text_input("Enter a password:", type="password")
 
 # Function to check password strength
 def check_password_strength(password):
-    result = zxcvbn(password)
-    return result
+    return zxcvbn(password)
 
-# Define strength levels and corresponding colors
+# Strength levels
 strength_levels = ["Very Weak", "Weak", "Moderate", "Strong", "Very Strong"]
-strength_colors = ["#FF0000", "#FF4500", "#FFA500", "#32CD32", "#008000"]  # Red → Orange → Yellow → Green → Dark Green
 
 # Display results
 if password:
     result = check_password_strength(password)
-    
-    # Get score (0-4)
     score = result['score']
     
-    # Display color-coded strength rating
-    st.markdown(
-        f'<h3 style="color:{strength_colors[score]};">🔎 Password Strength: {strength_levels[score]} ({score}/4)</h3>',
-        unsafe_allow_html=True
-    )
+    # Show strength level
+    st.subheader(f"🔎 Password Strength: **{strength_levels[score]}** ({score}/4)")
 
-    # Suggestions to improve password security
+    # Suggestions for improvement
     if result["feedback"]["suggestions"]:
         st.subheader("💡 Suggestions:")
         for suggestion in result["feedback"]["suggestions"]:
             st.write(f"- {suggestion}")
 
-    # Estimated time to crack the password
+    # Estimated time to crack
     st.subheader("⏳ Estimated Time to Crack:")
     st.write(f"🔹 **Online attack:** {result['crack_times_display']['online_no_throttling_10_per_second']}")
     st.write(f"🔹 **Offline fast attack:** {result['crack_times_display']['offline_fast_hashing_1e10_per_second']}")
-
-    # Strength bar using Streamlit columns
-    col1, col2, col3, col4, col5 = st.columns(5)
-
-    # Display a horizontal color-coded bar based on the score
-    if score >= 0:
-        col1.markdown(f'<div style="background-color:{strength_colors[0]};height:20px;border-radius:5px;"></div>', unsafe_allow_html=True)
-    if score >= 1:
-        col2.markdown(f'<div style="background-color:{strength_colors[1]};height:20px;border-radius:5px;"></div>', unsafe_allow_html=True)
-    if score >= 2:
-        col3.markdown(f'<div style="background-color:{strength_colors[2]};height:20px;border-radius:5px;"></div>', unsafe_allow_html=True)
-    if score >= 3:
-        col4.markdown(f'<div style="background-color:{strength_colors[3]};height:20px;border-radius:5px;"></div>', unsafe_allow_html=True)
-    if score >= 4:
-        col5.markdown(f'<div style="background-color:{strength_colors[4]};height:20px;border-radius:5px;"></div>', unsafe_allow_html=True)
-
 else:
     st.warning("Enter a password to check its strength.")
