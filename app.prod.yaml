@@ -1,4 +1,4 @@
-runtime: python39
+runtime: python
 service: streamlit-app-prod #< change this to something else
 
 instance_class: B2
