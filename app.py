@@ -5,7 +5,7 @@ from zxcvbn import zxcvbn
 # Streamlit App Title
 st.title("🔐 Password Strength Checker")
 
-# Input Field (Password)
+# Input Field ( Password )
 password = st.text_input("Enter a password:", type="password")
 
 # Function to check password strength
